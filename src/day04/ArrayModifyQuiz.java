@@ -7,10 +7,8 @@ public class ArrayModifyQuiz {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        String[] tvxq = {"영웅재중", "최강창민", "시아준수"
-                , "믹키유천", "유노윤호"};
-        System.out.println("* 변경 전 정보: "
-                + Arrays.toString(tvxq));
+        String[] tvxq = {"영웅재중", "최강창민", "시아준수", "믹키유천", "유노윤호"};
+        System.out.println("* 변경 전 정보: " + Arrays.toString(tvxq));
 
         while (true) {
             System.out.println("- 수정할 멤버의 이름을 입력하세요.");
@@ -29,8 +27,7 @@ public class ArrayModifyQuiz {
                 System.out.print("> ");
                 tvxq[i] = sc.next();
                 System.out.println("변경 완료!");
-                System.out.println("* 변경 후 정보: "
-                        + Arrays.toString(tvxq));
+                System.out.println("* 변경 후 정보: " + Arrays.toString(tvxq));
                 break;
             }
         }

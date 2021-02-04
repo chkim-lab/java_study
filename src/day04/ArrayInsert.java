@@ -12,7 +12,7 @@ public class ArrayInsert {
         //1. 확장된 배열의 생성
         int[] temp = new int[arr.length + 1];
 
-        //2. 기존 배열데이터를 볷하해서 신규 배열에 이동
+        //2. 기존 배열데이터를 복사해서 신규 배열에 이동
         for (int i=0; i < arr.length; i++) {
             temp[i] = arr[i];
         }
