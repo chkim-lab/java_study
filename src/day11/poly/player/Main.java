@@ -7,12 +7,17 @@ public class Main {
         Mage m = new Mage("번개왕김썬더");
         Hunter h = new Hunter("멍멍이죠아요");
 
+     /*
         m.meteo(w, h,
                 new Warrior("말썽쟁이전사"),
                 new Mage("블리자드왕"));
         System.out.println("==============================");
 
         m.meteo(w, m, h);
+    */
+    w.fireSlash(new Warrior("말썽꾸러기"));
+    w.fireSlash(m);
+    w.fireSlash(h);
 
     }
 }

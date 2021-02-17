@@ -45,5 +45,13 @@ public class Main {
         kim.drive(newCar);
 //        ((Sonata)newCar).joinMembership();    //방법1 일시적...
         newCar.joinMembership();
+
+        System.out.println("==========================================");
+
+        CarShop shop = new CarShop();
+        int money = shop.sellCar(new Sonata());
+        System.out.println("차 판매 수령액: " + money + "만원");
+        int money2 = shop.sellCar(k2);
+        System.out.println("차 판매 수령액: " + money2 + "만원");
     }
 }
