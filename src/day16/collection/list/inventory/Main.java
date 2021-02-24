@@ -53,7 +53,7 @@ public class Main {
         }
     }
 
-    //제품 정보 수정 기능
+    //제품 수정 처리 메서드
     private static void modifyProduct() {
         System.out.println("\n# 수정하실 제품의 바코드 번호를 입력하세요.");
         System.out.print("> ");
@@ -61,10 +61,51 @@ public class Main {
 
         Product product = inventory.getProduct(barcode);
 
-        System.out.println("\n# 수정하실 가격을 입력하세요.");
+        if(product != null) {
+            System.out.printf("\n# [%s]%s 제품의 수정을 시작합니다.\n", barcode, product.getProductName());
+            System.out.println("[ 1. 가격 수정 | 2. 수량 수정 | 3. 수정 취소 ]");
+            System.out.print("> ");
+
+            int newPrice = 0;
+            int newAmount = 0;
+            try {
+                int selection = sc.nextInt();
+                if ( selection==1 ) {
+                    System.out.println("# 수정하실 가격을 입력하세요.");
+                    System.out.print("> ");
+                    newPrice = sc.nextInt();
+                    inventory.updatePrice(product, newPrice);
+                } else if ( selection==2 ) {
+                    System.out.println("# 수정하실 수량을 입력하세요.");
+                    System.out.print("> ");
+                    newAmount = sc.nextInt();
+                    inventory.updateAmount(product, newAmount);
+                } else {
+                    System.out.println("삭제가 취소되었습니다.");
+                }
+
+            } catch (Exception e) {
+                System.out.println("\n# 숫자만 입력하세요. 수정을 취소합니다.");
+            }
+        } else {
+            System.out.println("해당 제품은 존재하지 않습니다.");
+        }
+    }
+
+    //제품 삭제 처리 메서드
+    private static void deleteProduct() {
+        System.out.println("\n# 삭제하실 제품의 바코드 번호를 입력하세요.");
         System.out.print("> ");
-        int newPrice = sc.nextInt();
-        inventory.updatePrice(product,newPrice);
+        String barcode = sc.next();
+
+        Product product = inventory.getProduct(barcode);
+
+        if (product != null) {
+            inventory.removeProduct(product);
+            System.out.println("삭제가 정상 처리되었습니다.");
+        } else {
+            System.out.println("해당 제품은 존재하지 않습니다.");
+        }
     }
 
     public static void main(String[] args) {
@@ -103,6 +144,7 @@ public class Main {
                     modifyProduct();
                     break;
                 case 5:
+                    deleteProduct();
                     break;
                 case 6:
                     System.out.println("프로그램을 종료합니다.");
