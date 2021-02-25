@@ -4,8 +4,6 @@ import java.util.*;
 import java.io.*;
 
 public class MainClass {
-
-
     static Map<String, Set<String>> artists = new HashMap<>();
     static Set<String> songs = null;
     static Scanner sc = new Scanner(System.in);
@@ -77,33 +75,40 @@ public class MainClass {
         System.out.print("- 곡명: ");
         String song = sc.nextLine();
 
-		/*
-		 1. 가수명이 중복되었는지 확인 후 신규 가수 등록이라면
-		 "# 아티스트 xxx님이 신규등록되었습니다."를 출력 후 해당 곡명과 함께
-		  컬렉션에 저장하세요.
-		 2. 만약 이미 등록되었던 가수명이라면
-		 "# 아티스트 xxx님의 노래목록에 xxx이(가) 추가되었습니다."
-		 를 출력 후 컬렉션에 저장하세요.
-		 3. 가수명과 곡명이 모두 사전에 등록된 정보라면
-		 "# 이미 등록된 노래입니다."를 출력하세요.
-		 */
-        if (artists.containsKey(artist)) {
-            songs = artists.get(artist);
-            if(songs.add(song)) {
-                System.out.printf("# 아티스트 %s님의 노래목록에 %S이(가) 추가되었습니다.", artist, song);
-                artists.put(artist,songs);
-                saveData();
+      /*
+       1. 가수명이 중복되었는지 확인 후 신규 가수 등록이라면
+       "# 아티스트 xxx님이 신규등록되었습니다."를 출력 후 해당 곡명과 함께
+        컬렉션에 저장하세요.
+       2. 만약 이미 등록되었던 가수명이라면
+       "# 아티스트 xxx님의 노래목록에 xxx이(가) 추가되었습니다."
+       를 출력 후 컬렉션에 저장하세요.
+       3. 가수명과 곡명이 모두 사전에 등록된 정보라면
+       "# 이미 등록된 노래입니다."를 출력하세요.
+       */
+
+        //신규 아티스트의 노래셋을 생성
+
+        //신규 아티스트 판단 조건
+        if (!artists.containsKey(artist)) { //신규등록
+            songs = new HashSet<>();
+            songs.add(song);
+            artists.put(artist, songs);
+            System.out.printf("# 아티스트 %s님이 신규 등록되었습니다.\n"
+                    , artist);
+        } else {  //기존 등록
+//            songs = artists.get(artist);   //kch
+//            if(songs.add(song)) {
+            Set<String> songList = artists.get(artist);
+            if(songList.add(song)) {
+
+                System.out.printf("# 아티스트 %s님의 노래목록에 '%s'이(가) 추가되었습니다.\n"
+                        , artist, song);
             } else {
                 System.out.println("# 이미 등록된 노래입니다.");
             }
-
-        } else {
-            songs = new HashSet<>();
-            songs.add(song);
-            artists.put(artist,songs);
-            System.out.printf("# 아티스트 %s님이 신규등록되었습니다.",artist);
-            saveData();
         }
+
+        saveData();
     }
 
     public static void searchMusic() {
@@ -111,19 +116,26 @@ public class MainClass {
         System.out.print("- 가수명: ");
         sc.nextLine();
         String artist = sc.nextLine();
+      /*
+       1. 가수명을 입력받아 해당 가수명에 매핑되어 저장되어있는 Set컬렉션을
+        출력하세요.
+        ex) * xxx님의 노래목록 *
+            [abc, def, ghi, jkl ...]
+       2. 등록된 가수가 아니라면 "해당 아티스트는 등록되지 않았습니다."를 출력.
+       */
 
-		/*
-		 1. 가수명을 입력받아 해당 가수명에 매핑되어 저장되어있는 Set컬렉션을
-		  출력하세요.
-		  ex) * xxx님의 노래목록 *
-		      [abc, def, ghi, jkl ...]
-		 2. 등록된 가수가 아니라면 "해당 아티스트는 등록되지 않았습니다."를 출력.
-		 */
-        if(artists.containsKey(artist)) {
-            System.out.println(artists.get(artist));
+        if (artists.containsKey(artist)) {
+            System.out.printf("\n# %s님의 노래목록 # \n", artist);
+            System.out.println("===============================");
+            int number = 1;
+            for (String song : artists.get(artist)) {
+                System.out.printf("* %d. %s\n", number, song);
+                number++;
+            }
         } else {
-            System.out.println("해당 아티스트는 등록되지 않았습니다.");
+            System.out.println("# 해당 아티스트는 등록되지 않았습니다.");
         }
+
 
     }
 
@@ -179,11 +191,4 @@ public class MainClass {
 
     }
 
-
 }
-
-
-
-
-
-
