@@ -1,8 +1,9 @@
 package day16.collection.list.inventory;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
-public class Product {
+public class Product implements Serializable {
 
     //제품 정보 필드 선언
     private String barcode;   //제품번호

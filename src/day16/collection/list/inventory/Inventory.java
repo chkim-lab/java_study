@@ -1,9 +1,10 @@
 package day16.collection.list.inventory;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Inventory {
+public class Inventory implements Serializable {
 
     private List<Product> products;
 
@@ -23,30 +24,11 @@ public class Inventory {
         if (products.contains(product)) {
             Product p = products.get(products.indexOf(product));
             p.setPrice(newPrice);
-            System.out.printf("가격이 %d원으로 변경되었습니다.\n", newPrice);
-//            //총액 갱신
-//            p.setTotalPrice(newPrice * product.getAmount());
+            System.out.printf("가격이 %d원으로 변경되었습니다.\n"
+                    , newPrice);
         } else {
             System.out.println("검색하신 제품은 존재하지 않습니다.");
         }
-    }
-
-    //제품 수량 수정 기능
-    public void updateAmount(Product product, int amount) {
-        if (products.contains(product)) {
-            Product p = products.get(products.indexOf(product));
-            p.setAmount(amount);
-            System.out.printf("수량이 %d개로 변경되었습니다.\n", amount);
-//            //총액 갱신
-//            p.setTotalPrice(amount * product.getPrice());
-        } else {
-            System.out.println("검색하신 제품은 존재하지 않습니다.");
-        }
-    }
-
-    //제품 삭제 기응
-    public void removeProduct(Product delProduct) {
-        products.remove(delProduct);
     }
 
     //전체 제품 조회
@@ -64,6 +46,11 @@ public class Inventory {
             }
         }
         return null; //탐색 실패 - 즉, 바코드번호가 없거나 잘못된 경우
+    }
+
+    //제품 삭제 기능
+    public void removeProduct(Product delProduct) {
+        products.remove(delProduct);
     }
 
     @Override
